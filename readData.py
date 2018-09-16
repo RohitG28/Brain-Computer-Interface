@@ -1,8 +1,8 @@
 import scipy.io as sio
 from pprint import pprint
 import numpy as np
-
-data = sio.loadmat('S01T.mat')
+import matplotlib.pyplot as plt
+data = sio.loadmat('S02E.mat')
 
 ## Following lists store the signal, trials, y and fs values for each subject separately
 signals = []
@@ -18,6 +18,7 @@ for i in range(len(data['data'][0])):
 	y.append(data['data'][0][i][0][0][2][0])
 	fs.append(data['data'][0][i][0][0][3][0])
 
+# pprint(signals)
 ## number of channels in the data
 numChannels = len(signals[0])
 
@@ -30,6 +31,7 @@ epochEnd = 0
 ## length of an epoch in ms
 epochLen = 300
 
+fig = plt.figure()
 
 ## extracts epochs for each subject
 def epochExtractorPerSubject(signals, trials, y, epochs, epochClasses, epochLen, epochStart, epochEnd):
@@ -66,4 +68,15 @@ def epochExtractor(signals, trials, y, epochLen, epochStart, epochEnd):
 	return epochs, epochClasses
 
 epochs, epochClasses = epochExtractor(signals, trials, y, epochLen, epochStart, epochEnd)
-print(len(epochs),len(epochs[0]),len(epochClasses)) 
+
+def visualizeSignalsForARecord(epochs, recordNum, epochClasses):
+	xs = range(epochLen)
+	color = 'b'
+	if(epochClasses[recordNum] == 2):
+		color = 'r'
+	for i in range(numChannels):
+		axes = fig.add_subplot(numChannels, 1, i+1)
+		axes.plot(xs, epochs[i][recordNum], color)
+
+visualizeSignalsForARecord(epochs, 970,epochClasses)
+plt.show()
