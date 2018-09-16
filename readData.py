@@ -78,5 +78,16 @@ def visualizeSignalsForARecord(epochs, recordNum, epochClasses):
 		axes = fig.add_subplot(numChannels, 1, i+1)
 		axes.plot(xs, epochs[i][recordNum], color)
 
-visualizeSignalsForARecord(epochs, 970,epochClasses)
+def visualizeAllRecords(epochs, epochClasses):
+	xs = range(epochLen)
+	for i in range(numChannels):
+		axes = fig.add_subplot(numChannels, 1, i+1)
+		for j in range(len(epochClasses)):
+			color = 'b'
+			if(epochClasses[j] == 2):
+				color = 'r'
+			axes.plot(xs, epochs[i][j], color)
+
+
+visualizeAllRecords(epochs,epochClasses)
 plt.show()
