@@ -2,7 +2,9 @@ import scipy.io as sio
 from pprint import pprint
 import numpy as np
 import matplotlib.pyplot as plt
-data = sio.loadmat('S02E.mat')
+from fft import plotFFT
+
+data = sio.loadmat('S01E.mat')
 
 ## Following lists store the signal, trials, y and fs values for each subject separately
 signals = []
@@ -88,6 +90,9 @@ def visualizeAllRecords(epochs, epochClasses):
 				color = 'r'
 			axes.plot(xs, epochs[i][j], color)
 
+#### FFT
+# plotFFT(epochs[1])
 
-visualizeAllRecords(epochs,epochClasses)
-plt.show()
+### To visualize the epochs
+# visualizeAllRecords(epochs,epochClasses)
+# plt.show()
