@@ -70,6 +70,8 @@ def epochExtractor(signals, trials, y, epochLen, epochStart, epochEnd):
 	return epochs, epochClasses
 
 epochs, epochClasses = epochExtractor(signals, trials, y, epochLen, epochStart, epochEnd)
+epochs = np.array(epochs)
+epochClasses = np.array(epochClasses)
 
 def visualizeSignalsForARecord(epochs, recordNum, epochClasses):
 	xs = range(epochLen)
@@ -90,8 +92,10 @@ def visualizeAllRecords(epochs, epochClasses):
 				color = 'r'
 			axes.plot(xs, epochs[i][j], color)
 
+# epochs = np.transpose(epochs,(1,0,2))
+# print(np.shape(epochs[0]))
 #### FFT
-# plotFFT(epochs[1])
+plotFFT(epochs[1])
 
 ### To visualize the epochs
 # visualizeAllRecords(epochs,epochClasses)
