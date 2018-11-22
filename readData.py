@@ -111,4 +111,3 @@ print(np.shape(images))
 
 ### To visualize the epochs
 # visualizeAllRecords(epochs,epochClasses)
-# plt.show()

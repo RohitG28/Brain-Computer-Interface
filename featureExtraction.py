@@ -452,5 +452,4 @@ for epoch in epochsTransposed:
 featureVectors = np.array(featureVectors)
 np.save("features",featureVectors)
 np.save("classes",epochClasses)
-
 print(np.shape(featureVectors))

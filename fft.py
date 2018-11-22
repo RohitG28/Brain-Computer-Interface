@@ -39,4 +39,3 @@ def stftCalculation(epochs, windowSize = 64):
 		images.append(np.concatenate(singleImage))
 	images = np.array(images)
 	return images
-
