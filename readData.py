@@ -2,7 +2,8 @@ import scipy.io as sio
 from pprint import pprint
 import numpy as np
 import matplotlib.pyplot as plt
-from fft import plotFFT
+from fft import *
+from scipy.signal import stft
 
 data = sio.loadmat('S01E.mat')
 
@@ -70,6 +71,8 @@ def epochExtractor(signals, trials, y, epochLen, epochStart, epochEnd):
 	return epochs, epochClasses
 
 epochs, epochClasses = epochExtractor(signals, trials, y, epochLen, epochStart, epochEnd)
+epochs = np.array(epochs)
+epochClasses = np.array(epochClasses)
 
 def visualizeSignalsForARecord(epochs, recordNum, epochClasses):
 	xs = range(epochLen)
@@ -90,8 +93,21 @@ def visualizeAllRecords(epochs, epochClasses):
 				color = 'r'
 			axes.plot(xs, epochs[i][j], color)
 
+# epochs = np.transpose(epochs,(1,0,2))
+# print(np.shape(epochs[0]))
 #### FFT
 # plotFFT(epochs[1])
+# print(len(epochs[0][0]))
+# freq, time, zxx = stft(epochs[0][0], nperseg=64)
+
+# print(freq)
+# print(time)
+# print(zxx.shape)
+
+images = stftCalculation(epochs)
+np.save("imageFeatures",images)
+np.save("classes",epochClasses)
+print(np.shape(images))
 
 ### To visualize the epochs
 # visualizeAllRecords(epochs,epochClasses)

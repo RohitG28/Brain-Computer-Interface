@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.signal import stft
 
 def plotFFT(signal):
 	Fs = 150.0;  # sampling rate
@@ -25,3 +26,17 @@ def plotFFT(signal):
 	ax[1].set_ylabel('|Y(freq)|')
 
 	plt.show()
+
+def stftCalculation(epochs, windowSize = 64):
+	epochs = np.transpose(epochs, (1,0,2))
+	images = []
+	for i in range(len(epochs)):
+		singleImage = []
+		for j in range(len(epochs[0])):
+			_,_,z = stft(epochs[i][j], nperseg = windowSize)
+			singleImage.append(z)
+
+		images.append(np.concatenate(singleImage))
+	images = np.array(images)
+	return images
+
